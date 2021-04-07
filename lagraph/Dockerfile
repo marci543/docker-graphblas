@@ -11,7 +11,7 @@ RUN wget https://github.com/GraphBLAS/LAGraph/archive/$VERSION.tar.gz
 RUN tar -xf $VERSION.tar.gz
 
 WORKDIR /home/build/LAGraph-$VERSION
-RUN make JOBS=8 && make install
+RUN make JOBS=$(nproc) && make install
 
 FROM scratch
 COPY --from=builder /usr/local/lib/ /usr/local/lib/

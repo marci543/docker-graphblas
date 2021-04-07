@@ -9,7 +9,7 @@ RUN wget https://github.com/DrTimothyAldenDavis/GraphBLAS/archive/v$VERSION.tar.
 RUN tar -xf v$VERSION.tar.gz
 
 WORKDIR /home/build/GraphBLAS-$VERSION
-RUN make JOBS=8 && make install
+RUN make JOBS=$(nproc) && make install
 
 FROM scratch
 COPY --from=builder /usr/local/lib/ /usr/local/lib/
