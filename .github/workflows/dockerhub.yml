@@ -1,0 +1,16 @@
+name: Check image availability
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # monthly trigger
+    - cron: "00 11 23 * *"
+jobs:
+  check_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check image manifests
+        run: |
+          SCRIPT_URL=https://github.com/TransformationToolContest/ttc2018liveContest/raw/e1bf04d288f94fb50f47ce5c02ae8b43cebaaf64/docker/check-docker-hub-tags.sh
+          curl -fsSL "$SCRIPT_URL" | bash -s -- marci543/lagraph 2021Apr01-reorg-99ad411
